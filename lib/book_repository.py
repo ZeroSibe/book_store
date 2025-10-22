@@ -19,8 +19,12 @@ class BookRepository():
             [book.title, book.author_name])
         return None
 
-    # def update(book)
-    # 
+    def update(self,book_id, book_title):
+        self._connection.execute(
+            'UPDATE books SET title = %s WHERE id = %s',[book_title, book_id])
+        return None
 
-    # def delete(book)
-    # 
+    def delete(self, book_id):
+        self._connection.execute(
+            'DELETE from books WHERE id = %s', [book_id])
+        return None

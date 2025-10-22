@@ -45,23 +45,25 @@ def test_create_book(db_connection):
     assert books[-1].title ==  'Atomic Habits'
     assert books[-1].author_name ==  'James Clear'
 
-# # 4
-# # Update book record
-# repo = BookRepository()
-
-# book = repo.update(1, 'Animal Farm')
-# books = repo.find(1)
-# book.id # =>  1
-# book.title # =>  'Animal Farm'
-# book.author_name # =>  'George Orwell'
+# 4
+# Update book record
+def test_update_book_record(db_connection):
+    db_connection.seed('seeds/book_store.sql')
+    repo = BookRepository(db_connection)
+    repo.update(1, 'Animal Farm')
+    book = repo.find(1)
+    assert book.id ==  1
+    assert book.title ==  'Animal Farm'
+    assert book.author_name ==  'George Orwell'
 
 # # 5
 # # Remove book record
-# repo = BookRepository()
-
-# book = repo.delete(5)
-# books = repo.all()
-# len(books) # =>  4
-# book[-1].id # =>  4
-# book[-1].title # =>  'Dracula'
-# book[-1].author_name # =>  'Bram Stoker'
+def test_remove_book_record(db_connection):
+    db_connection.seed('seeds/book_store.sql')
+    repo = BookRepository(db_connection)
+    repo.delete(5)
+    books = repo.all()
+    assert len(books) ==  4
+    assert books[-1].id ==  4
+    assert books[-1].title ==  'Dracula'
+    assert books[-1].author_name ==  'Bram Stoker'

@@ -156,7 +156,7 @@ class BookRepository():
 
     def delete(book_id)
         # Remove book record
-        # Two arguments: passing book_id
+        # One argument: passing book_id
         # Executes the SQL query:
         # DELETE from books WHERE id = %s, [book_id]
         # Returns None
@@ -249,9 +249,9 @@ repo = BookRepository()
 book = repo.delete(5)
 books = repo.all()
 len(books) # =>  4
-book[-1].id # =>  4
-book[-1].title # =>  'Dracula'
-book[-1].author_name # =>  'Bram Stoker'
+books[-1].id # =>  4
+books[-1].title # =>  'Dracula'
+books[-1].author_name # =>  'Bram Stoker'
 
 
 ```
