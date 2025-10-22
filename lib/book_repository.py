@@ -1,33 +1,26 @@
-# class BookRepository():
+from lib.book import Book
 
-#     def all():
-#         # Selecting all records
-#         # No arguments
-#         # Executes the SQL query:
-#         # SELECT id, title, author_name FROM books;
+class BookRepository():
+    def __init__(self, connection):
+        self._connection = connection
 
-#         # Returns an array of Book objects.
+    def all(self):
+        rows = self._connection.execute('SELECT * FROM books')
+        return [Book(row['id'], row['title'], row['author_name']) for row in rows ]
 
-#     def find(id):
-#         # Gets a single record by its ID
-#         # One argument: the id (number)
-#         # Executes the SQL query:
-#         # SELECT id, title, author_name FROM books WHERE id = $1;
+    def find(self, id):
+        rows = self._connection.execute('SELECT * FROM books WHERE id = %s', [id])
+        row = rows[0]
+        return Book(row['id'], row['title'], row['author_name'])
 
-#         # Returns a single Book object.
+    def create(self, book):
+        self._connection.execute(
+            'INSERT INTO books (title, author_name) VALUES (%s, %s)',
+            [book.title, book.author_name])
+        return None
 
-#         # Add more methods below for each operation you'd like to implement.
+    # def update(book)
+    # 
 
-#     def create(book):
-#     # Executes the SQL query:
-#     # INSERT INTO books (title, author_name) VALUES (%s, %s), [book.title, book.author_name];
-#     # Retuns None
-
-#     # One argument: the book (book instance)
-
-
-#     # def update(book)
-#     # 
-
-#     # def delete(book)
-#     # 
+    # def delete(book)
+    # 

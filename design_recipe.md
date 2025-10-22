@@ -136,25 +136,30 @@ class BookRepository():
         # Gets a single record by its ID
         # One argument: the id (number)
         # Executes the SQL query:
-        # SELECT id, title, author_name FROM books WHERE id = $1;
+        # 'SELECT * FROM books WHERE id = %s', [id]
 
         # Returns a single Book object.
 
-        # Add more methods below for each operation you'd like to implement.
 
     def create(book):
-    # Executes the SQL query:
-    # INSERT INTO books (title, author_name) VALUES (%s, %s), [book.title, book.author_name];
-    # Retuns None
+        # One argument: the book (book instance)
+        # # Executes the SQL query:
+        # INSERT INTO books (title, author_name) VALUES (%s, %s), [book.title, book.author_name];
+        # Returns None
 
-    # One argument: the book (book instance)
+    def update(book_id, book_title)
+        # Update book record
+        # Two arguments: passing book_id, book title
+        # Executes the SQL query:
+        # UPDATE books SET title = %s WHERE id = %s,[book_title, book_id]
+        # Returns None
 
-
-    # def update(book)
-    # 
-
-    # def delete(book)
-    # 
+    def delete(book_id)
+        # Remove book record
+        # Two arguments: passing book_id
+        # Executes the SQL query:
+        # DELETE from books WHERE id = %s, [book_id]
+        # Returns None
 
 ```
 
@@ -187,9 +192,6 @@ book_1 = Book(1, 'Test title', 'Test name')
 book_2 = Book(1, 'Test title', 'Test name')
 book_1 == book_2 #=> True
 
-
-
-
 ### test_book_repository.py
 # 1
 # Get all books
@@ -215,9 +217,9 @@ repo = BookRepository()
 
 book = repo.find(1)
 
-books[0].id # =>  1
-books[0].title # =>  'Nineteen Eighty-Four'
-books[0].author_name # =>  'George Orwell'
+book[0].id # =>  1
+book[0].title # =>  'Nineteen Eighty-Four'
+book[0].author_name # =>  'George Orwell'
 
 # 3
 # Create new book record
@@ -226,9 +228,30 @@ repo = BookRepository()
 book = repo.create(Book('Atomic Habits', 'James Clear'))
 books = repo.all()
 len(books) # =>  6
-books[-1].id # =>  6
-books[-1].title # =>  'Atomic Habits'
-books[-1].author_name # =>  'James Clear'
+book[-1].id # =>  6
+book[-1].title # =>  'Atomic Habits'
+book[-1].author_name # =>  'James Clear'
+
+# 4
+# Update book record
+repo = BookRepository()
+
+book = repo.update(1, 'Animal Farm')
+books = repo.find(1)
+book.id # =>  1
+book.title # =>  'Animal Farm'
+book.author_name # =>  'George Orwell'
+
+# 5
+# Remove book record
+repo = BookRepository()
+
+book = repo.delete(5)
+books = repo.all()
+len(books) # =>  4
+book[-1].id # =>  4
+book[-1].title # =>  'Dracula'
+book[-1].author_name # =>  'Bram Stoker'
 
 
 ```
