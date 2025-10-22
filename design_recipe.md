@@ -172,9 +172,9 @@ These examples will later be encoded as Pytest tests.
 # Book constructs with an id, title and author name
 
 book = Book(1, 'Test title', 'Test name')
-books.id # =>  1
-books.title # =>  'Test title'
-books.author_name # =>  'Test name'
+book.id # =>  1
+book.title # =>  'Test title'
+book.author_name # =>  'Test name'
 
 #2
 # Format book object to string 
